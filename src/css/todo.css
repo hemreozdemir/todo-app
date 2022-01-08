@@ -1,0 +1,32 @@
+.todo-container {
+    margin: 50px;
+}
+.todo-container .todo-card {
+    background-color: rgba(128, 128, 128, 0);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.todo-checkbox {
+    margin: 0;
+    margin-right: 10px;
+    min-width: 38px;
+    min-height: 38px;
+}
+
+.todo-read-input {
+    border-width: 2px;
+    height: 40px;
+}
+
+.todo-input-form {
+    margin-bottom: 10px;
+}
+
+.todo-input {
+    height: 50px;
+    margin-left: 10px;
+}
+
+.remove-todo-button {
+    margin-left: 10px;
+}
