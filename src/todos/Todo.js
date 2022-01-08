@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 // ** Componenets
 import List from "./List";
 import AddTodo from "./AddTodo";
+import ListItem from "./ListItem";
 
 // ** 3rd party components
 import { Card, CardBody, Input } from "reactstrap";
@@ -50,28 +51,27 @@ const Todo = () => {
     };
 
     const handleRemoveTodo = (id) => {
-        // let allTodosTemp = allTodos;
-        // allTodosTemp.forEach((element, index) => {
-        //     if (element.id === id) {
-        //         allTodosTemp.splice(index, 1);
-        //     }
-        // });
-
-        // setAllTodos(allTodosTemp);
-        setAllTodos((prev) => {
-            let removedIndex;
-            console.log("prev", prev);
-            prev.forEach((element, index) => {
-                if (element.id === id) {
-                    removedIndex = index;
-                }
-            });
-
-            prev.splice(removedIndex, 1);
-            console.log("prev", prev);
-            // saveTodos(JSON.stringify(prev));
-            return prev;
+        let allTodosTemp = allTodos;
+        allTodosTemp.forEach((element, index) => {
+            if (element.id === id) {
+                allTodosTemp.splice(index, 1);
+            }
         });
+        console.log("allTodosTemp", allTodosTemp);
+
+        setAllTodos([...allTodosTemp]);
+        // setAllTodos((prev) => {
+        //     let removedIndex;
+        //     let prevTemp = prev;
+        //     console.log("prev", prev);
+        //     prev.forEach((element, index) => {
+        //         if (element.id === id) {
+        //             removedIndex = index;
+        //         }
+        //     });
+        //     // saveTodos(JSON.stringify(prev));
+        //     return prevTemp;
+        // });
 
         // saveTodos(JSON.stringify(allTodosTemp));
     };
@@ -81,11 +81,21 @@ const Todo = () => {
             <Card className="todo-card">
                 <CardBody className="todo-card-body">
                     <AddTodo handleSubmitTodo={handleSubmitTodo} />
-                    <List
-                        allTodos={allTodos}
-                        handleChangeTodoChecked={handleChangeTodoChecked}
-                        handleRemoveTodo={handleRemoveTodo}
-                    />
+                    {allTodos &&
+                        allTodos.map((todo) => {
+                            return (
+                                <ListItem
+                                    key={todo.id}
+                                    id={todo.id}
+                                    checked={todo.checked}
+                                    todoText={todo.text}
+                                    handleChangeTodoChecked={
+                                        handleChangeTodoChecked
+                                    }
+                                    handleRemoveTodo={handleRemoveTodo}
+                                />
+                            );
+                        })}
                 </CardBody>
             </Card>
         </div>
