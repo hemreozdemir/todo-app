@@ -3,12 +3,12 @@ import "./App.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Todo from "./todos/Todo";
+import TodoList from "./todos/List";
 
 function App() {
     return (
         <div className="App">
-            <Todo />
+            <TodoList />
         </div>
     );
 }
