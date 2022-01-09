@@ -26,10 +26,11 @@ const TodoList = () => {
     }, []);
 
     useEffect(() => {
-        saveTodos(JSON.stringify(allTodos));
+        saveTodos(JSON.stringify(allTodos)); //saves changes with local storage
         console.log("todo listesi değişti");
     }, [allTodos]);
 
+    // ** adds new todo
     const handleSubmitTodo = (todoText) => {
         let todoId = allTodos.length === 0 ? 0 : allTodos.at(-1).id + 1;
         const newTodo = {
@@ -48,8 +49,7 @@ const TodoList = () => {
             }
         });
         console.log("handleChangeTodoChecked");
-        setAllTodos(allTodosTemp);
-        saveTodos(JSON.stringify(allTodosTemp));
+        setAllTodos([...allTodosTemp]);
     };
 
     const handleRemoveTodo = (id) => {
