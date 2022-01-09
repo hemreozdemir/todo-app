@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Card, CardBody, Input, Button, Form, FormGroup } from "reactstrap";
+import { Input, Button, Form, FormGroup } from "reactstrap";
 
 const AddTodo = ({ handleSubmitTodo }) => {
     const [todoText, setTodoText] = useState("");
