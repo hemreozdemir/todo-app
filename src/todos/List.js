@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 // ** Componenets
 import AddTodo from "./AddTodo";
 import ListItem from "./ListItem";
+import FilterTodos from "./FilterTodos";
 
 // ** 3rd party components
 import { Card, CardBody, Input } from "reactstrap";
@@ -15,6 +16,8 @@ import { saveTodos, getTodos } from "../data/LocaleDataSource";
 
 const TodoList = () => {
     const [allTodos, setAllTodos] = useState([]);
+    const [showActives, setShowActives] = useState(false);
+    const [showCompleted, setShowCompleted] = useState(false);
 
     useEffect(() => {
         if (JSON.parse(getTodos())) {
@@ -59,26 +62,53 @@ const TodoList = () => {
         setAllTodos([...allTodosTemp]);
     };
 
+    const handleShowActive = (status) => {
+        setShowActives(status);
+    };
+
+    const handleShowCompleted = (status) => {
+        setShowCompleted(status);
+    };
+
     return (
         <div className="todo-container">
             <Card className="todo-card">
                 <CardBody className="todo-card-body">
                     <AddTodo handleSubmitTodo={handleSubmitTodo} />
-                    {allTodos &&
-                        allTodos.map((todo) => {
-                            return (
-                                <ListItem
-                                    key={todo.id}
-                                    id={todo.id}
-                                    checked={todo.checked}
-                                    todoText={todo.text}
-                                    handleChangeTodoChecked={
-                                        handleChangeTodoChecked
-                                    }
-                                    handleRemoveTodo={handleRemoveTodo}
-                                />
-                            );
-                        })}
+                    {allTodos && (showCompleted || showActives)
+                        ? allTodos.map(
+                              (todo) =>
+                                  (showCompleted
+                                      ? todo.checked
+                                      : !todo.checked) && (
+                                      <ListItem
+                                          key={todo.id}
+                                          id={todo.id}
+                                          checked={todo.checked}
+                                          todoText={todo.text}
+                                          handleChangeTodoChecked={
+                                              handleChangeTodoChecked
+                                          }
+                                          handleRemoveTodo={handleRemoveTodo}
+                                      />
+                                  )
+                          )
+                        : allTodos.map((todo) => (
+                              <ListItem
+                                  key={todo.id}
+                                  id={todo.id}
+                                  checked={todo.checked}
+                                  todoText={todo.text}
+                                  handleChangeTodoChecked={
+                                      handleChangeTodoChecked
+                                  }
+                                  handleRemoveTodo={handleRemoveTodo}
+                              />
+                          ))}
+                    <FilterTodos
+                        handleShowActive={handleShowActive}
+                        handleShowCompleted={handleShowCompleted}
+                    />
                 </CardBody>
             </Card>
         </div>

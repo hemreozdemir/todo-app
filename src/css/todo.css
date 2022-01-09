@@ -30,3 +30,8 @@
 .remove-todo-button {
     margin-left: 10px;
 }
+
+.filter-todos-checkbox {
+    display: flex;
+    justify-content: center;
+}
