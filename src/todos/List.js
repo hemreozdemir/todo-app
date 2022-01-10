@@ -13,11 +13,14 @@ import "../css/todo.css";
 
 // ** Store
 import { saveTodos, getTodos } from "../data/LocaleDataSource";
+import Header from "./Header/Header";
 
 const TodoList = () => {
     const [allTodos, setAllTodos] = useState([]);
     const [showActives, setShowActives] = useState(false);
     const [showCompleted, setShowCompleted] = useState(false);
+    const [searchedKeyword, setSearchedKeyword] = useState("");
+    const [searchedTodos, setSearchedTodos] = useState([]);
 
     useEffect(() => {
         if (JSON.parse(getTodos())) {
@@ -70,12 +73,47 @@ const TodoList = () => {
         setShowCompleted(status);
     };
 
+    const searchTodo = (searched) => {
+        let searchedTodosTemp = allTodos.filter((todo) =>
+            todo.text.toLowerCase().includes(searched.toLowerCase())
+        );
+        setSearchedTodos(searchedTodosTemp);
+    };
+
+    const handleOnChangeSearch = (searched) => {
+        setSearchedKeyword(searched);
+        if (searched) {
+            searchTodo(searched);
+        }
+    };
+
     return (
         <div className="todo-container">
+            <Header handleOnChangeSearch={handleOnChangeSearch} />
             <Card className="todo-card">
                 <CardBody className="todo-card-body">
                     <AddTodo handleSubmitTodo={handleSubmitTodo} />
-                    {allTodos && (showCompleted || showActives)
+                    {allTodos && searchedKeyword.length > 1
+                        ? searchedTodos.map(
+                              (todo) =>
+                                  (showCompleted
+                                      ? todo.checked
+                                      : showActives
+                                      ? !todo.checked
+                                      : true) && (
+                                      <ListItem
+                                          key={todo.id}
+                                          id={todo.id}
+                                          checked={todo.checked}
+                                          todoText={todo.text}
+                                          handleChangeTodoChecked={
+                                              handleChangeTodoChecked
+                                          }
+                                          handleRemoveTodo={handleRemoveTodo}
+                                      />
+                                  )
+                          )
+                        : showCompleted || showActives
                         ? allTodos.map(
                               (todo) =>
                                   (showCompleted

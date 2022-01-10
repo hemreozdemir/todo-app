@@ -1,5 +1,6 @@
 .todo-container {
     margin: 50px;
+    z-index: 999;
 }
 .todo-container .todo-card {
     background-color: rgba(128, 128, 128, 0);
@@ -34,4 +35,15 @@
 .filter-todos-checkbox {
     display: flex;
     justify-content: center;
+}
+
+.search-todo {
+    margin-left: auto;
+    width: 400px;
+    display: flex;
+}
+
+.header-card {
+    background-color: rgba(128, 128, 128, 0);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
 }
