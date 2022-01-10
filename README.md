@@ -1,5 +1,6 @@
 # todo-app
-simple todo-app with react
+simple todo-app with react<br/>
+localStorage used
 
 ### `npm start`
 
