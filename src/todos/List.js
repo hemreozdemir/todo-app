@@ -113,12 +113,13 @@ const TodoList = () => {
                                       />
                                   )
                           )
-                        : showCompleted || showActives
-                        ? allTodos.map(
+                        : allTodos.map(
                               (todo) =>
                                   (showCompleted
                                       ? todo.checked
-                                      : !todo.checked) && (
+                                      : showActives
+                                      ? !todo.checked
+                                      : true) && (
                                       <ListItem
                                           key={todo.id}
                                           id={todo.id}
@@ -130,19 +131,7 @@ const TodoList = () => {
                                           handleRemoveTodo={handleRemoveTodo}
                                       />
                                   )
-                          )
-                        : allTodos.map((todo) => (
-                              <ListItem
-                                  key={todo.id}
-                                  id={todo.id}
-                                  checked={todo.checked}
-                                  todoText={todo.text}
-                                  handleChangeTodoChecked={
-                                      handleChangeTodoChecked
-                                  }
-                                  handleRemoveTodo={handleRemoveTodo}
-                              />
-                          ))}
+                          )}
                     <FilterTodos
                         handleShowActive={handleShowActive}
                         handleShowCompleted={handleShowCompleted}
